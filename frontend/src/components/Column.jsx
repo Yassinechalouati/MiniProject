@@ -4,7 +4,6 @@ import {
   ListItemText,
   Paper,
   Typography,
-  Checkbox,
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -46,12 +45,10 @@ export default function Column() {
   return (
     <Paper
       sx={{
-        width: "15rem",
         padding: "7px",
-        // height: "auto",
-        height: "90vh",
+        width: "17rem",
       }}
-      elevation={4}
+      elevation={6}
     >
       <Typography variant="subtitle1" component="h2">
         To Do
@@ -59,7 +56,7 @@ export default function Column() {
       <List
         sx={{
           overflowY: "scroll",
-          maxHeight: "90%",
+          maxHeight: "80vh",
           "&::-webkit-scrollbar": { display: "none" },
           scrollbarWidth: "none",
         }}
@@ -94,7 +91,7 @@ export default function Column() {
           </ListItem>
         ))}
       </List>
-      <Typography variant="subtitle1" component="h2">
+      <Typography bgcolor="red" variant="subtitle1" component="h2">
         Add a card
       </Typography>
     </Paper>

@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
   },
 });
 
@@ -14,7 +14,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <NavBar></NavBar>
-      <Stack height={90} padding={2} direction="row" spacing={2}>
+      <Stack padding={2} direction="row" spacing={2} alignItems="flex-start">
         <Column></Column>
         <Column></Column>
       </Stack>
