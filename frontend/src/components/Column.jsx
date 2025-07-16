@@ -1,15 +1,9 @@
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-  IconButton,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { List, Paper, Typography } from "@mui/material";
 import { useState } from "react";
+import Cards from "./Cards";
+import AddCard from "./AddCard";
 
-export default function Column() {
+export default function Column(props) {
   const [todos, setTodos] = useState([
     { id: 1, text: "Buy groceries", completed: false },
     { id: 2, text: "Read a book", completed: true },
@@ -47,53 +41,31 @@ export default function Column() {
       sx={{
         padding: "7px",
         width: "17rem",
+        borderRadius: "10px",
       }}
       elevation={6}
     >
-      <Typography variant="subtitle1" component="h2">
-        To Do
+      <Typography variant="subtitle1" component="paragraph">
+        {props.Title}
       </Typography>
       <List
         sx={{
           overflowY: "scroll",
-          maxHeight: "80vh",
+          maxHeight: "75vh",
           "&::-webkit-scrollbar": { display: "none" },
           scrollbarWidth: "none",
         }}
       >
-        {todos.map((todo) => (
-          <ListItem
-            key={todo.id}
-            dense
-            button
-            onClick={() => toggleTodo(todo.id)}
-            sx={{
-              bgcolor: "gray",
-              borderRadius: "10px",
-              marginY: "7px",
-            }}
-          >
-            {/* <Checkbox
-              edge="start"
-              checked={todo.completed}
-              tabIndex={-1}
-              disableRipple
-            /> */}
-            <ListItemText
-              primary={todo.text}
-              sx={{
-                textDecoration: todo.completed ? "line-through" : "none",
-              }}
-            />
-            <IconButton edge="end" onClick={() => deleteTodo(todo.id)}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
+        {todos.map((todo, key) => (
+          <Cards
+            key={key}
+            {...todo}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+          ></Cards>
         ))}
       </List>
-      <Typography bgcolor="red" variant="subtitle1" component="h2">
-        Add a card
-      </Typography>
+      <AddCard text="Add a card" classname="addButton"></AddCard>
     </Paper>
   );
 }
