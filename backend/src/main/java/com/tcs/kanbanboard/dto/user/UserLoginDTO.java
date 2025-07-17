@@ -2,26 +2,25 @@ package com.tcs.kanbanboard.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.processing.Pattern;
 
-public class UserRegistrationDTO {
+public class UserLoginDTO {
 
-    @Email(message = "E-mail should be a valid e-mail")
-    @NotBlank(message = "E-mail is required")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email format is invalid")
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).+$",
-            message = "Password must contain at least one uppercase letter and one number")
     private String password;
 
-    public UserRegistrationDTO() {}
+    private boolean rememberMe;
 
-    public UserRegistrationDTO(String email, String password) {
+    public UserLoginDTO() {
+    }
+
+    public UserLoginDTO(String email, String password, boolean rememberMe) {
         this.email = email;
         this.password = password;
+        this.rememberMe = rememberMe;
     }
 
     public String getEmail() {
@@ -38,5 +37,13 @@ public class UserRegistrationDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }

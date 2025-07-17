@@ -1,28 +1,23 @@
-package com.tcs.kanbanboard.dto.user;
+package com.tcs.kanbanboard.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.processing.Pattern;
 
-public class UserRegistrationDTO {
+public class UserUpdateDTO {
 
-    @Email(message = "E-mail should be a valid e-mail")
-    @NotBlank(message = "E-mail is required")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Must be a valid email")
     private String email;
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).+$",
             message = "Password must contain at least one uppercase letter and one number")
-    private String password;
+    private String newPassword;
 
-    public UserRegistrationDTO() {}
-
-    public UserRegistrationDTO(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    private String currentPassword;
 
     public String getEmail() {
         return email;
@@ -32,11 +27,19 @@ public class UserRegistrationDTO {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 }
