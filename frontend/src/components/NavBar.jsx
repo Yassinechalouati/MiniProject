@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Avatar, Typography } from "@mui/material";
+import ThemeToggle from "./ThemeToggle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,7 +71,16 @@ export default function NavBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ThemeToggle></ThemeToggle>
+            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

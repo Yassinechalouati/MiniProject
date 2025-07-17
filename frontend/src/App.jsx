@@ -3,15 +3,21 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import KanbanBoard from "./pages/KanbanBoard";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
   },
+  // palette: {
+  //   mode: 'dark',
+  //   primary: {
+  //     main: '#ff5252',
+  //   },
+  // },
 });
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <KanbanBoard></KanbanBoard>
     </ThemeProvider>
   );

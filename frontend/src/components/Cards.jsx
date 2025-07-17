@@ -28,6 +28,7 @@ export default function Cards(props) {
         primary={props.text}
         sx={{
           textDecoration: props.completed ? "line-through" : "none",
+          wordBreak: "break-all",
         }}
       />
       <IconButton edge="end" onClick={() => props.deleteTodo(props.id)}>
