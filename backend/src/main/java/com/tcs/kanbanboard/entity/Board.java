@@ -2,6 +2,7 @@ package com.tcs.kanbanboard.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,10 +28,18 @@ public class Board {
 
     public Board() {}
 
+    public Board(User owner, String name) {
+        this.owner = owner;
+        this.name = name;
+        this.createdAt = LocalDateTime.now();
+        this.columns = new ArrayList<>();
+    }
+
     public Board(User owner, String name, List<ColumnEntity> columns) {
         this.owner = owner;
         this.name = name;
         this.columns = columns;
+        createdAt = LocalDateTime.now();
     }
 
     public Board(Long id, User owner, String name, LocalDateTime createdAt, List<ColumnEntity> columns) {

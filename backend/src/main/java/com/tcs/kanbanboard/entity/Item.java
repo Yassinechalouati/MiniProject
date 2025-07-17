@@ -29,6 +29,13 @@ public class Item {
         this.description = description;
     }
 
+    public Item(ColumnEntity column, String title, String description, int position) {
+        this.column = column;
+        this.title = title;
+        this.description = description;
+        this.position = position;
+    }
+
     public Item(Long id, ColumnEntity column, String title, String description, int position) {
         this.id = id;
         this.column = column;

@@ -1,7 +1,8 @@
-package  com.tcs.kanbanboard.entity.app_user;
+package com.tcs.kanbanboard.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,12 @@ public class User {
     private List<Board> boards;
 
     public User() {}
+
+    public User(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.boards = new ArrayList<>();
+    }
 
     public User(String email, String passwordHash, List<Board> boards) {
         this.email = email;

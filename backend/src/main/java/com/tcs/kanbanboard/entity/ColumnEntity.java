@@ -1,6 +1,8 @@
 package com.tcs.kanbanboard.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,6 +32,7 @@ public class ColumnEntity {
         this.board = board;
         this.name = name;
         this.position = position;
+        items = new ArrayList<>();
     }
 
     public ColumnEntity(Long id, Board board, String name, int position, List<Item> items) {
@@ -37,7 +40,7 @@ public class ColumnEntity {
         this.board = board;
         this.name = name;
         this.position = position;
-        this.items = items;
+        this.items = items != null ? items : new ArrayList<>();
     }
 
     public Long getId() {
