@@ -11,7 +11,7 @@ export default function Cards(props) {
       key={props.id}
       dense
       button="true"
-      onClick={() => props.toggleTodo(props.id)}
+      // onClick={() => props.toggleTodo(props.id)}
       sx={{
         bgcolor: theme.palette.background.default,
         borderRadius: "10px",
@@ -25,14 +25,21 @@ export default function Cards(props) {
               disableRipple
             /> */}
       <ListItemText
-        primary={props.text}
+        primary={props.content}
         sx={{
           textDecoration: props.completed ? "line-through" : "none",
           wordBreak: "break-all",
         }}
       />
-      <IconButton edge="end" onClick={() => props.deleteTodo(props.id)}>
-        <DeleteIcon />
+      <IconButton
+        edge="end"
+        // onClick={() => props.deleteTodo(props.id)}
+      >
+        <DeleteIcon
+          sx={{
+            color: theme.palette.text.primary,
+          }}
+        />
       </IconButton>
     </ListItem>
   );

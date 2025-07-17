@@ -12,6 +12,7 @@ export default function AddContent({
   editModeButtonLabel,
   buttonLabel,
   color,
+  marginTop,
   elevation,
 }) {
   const [edit, setEdit] = useState(false);
@@ -87,10 +88,11 @@ export default function AddContent({
         justifyContent: "flex-start",
         width: "100%",
         borderRadius: "10px",
+        marginTop: marginTop ? marginTop : "0px",
         border: "none",
         cursor: "pointer",
         alignItems: "center",
-        bgcolor: theme.palette.background.paper,
+        bgcolor: color,
       }}
     />
   );

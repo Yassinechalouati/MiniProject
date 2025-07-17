@@ -1,41 +1,19 @@
-import { List, Paper, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { List, Paper, Typography } from "@mui/material";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
 
 export default function Column(props) {
-  const theme = useTheme();
-  const [todos, setTodos] = useState([
-    { id: 1, text: "Buy groceries", completed: false },
-    { id: 2, text: "Read a book", completed: true },
-    { id: 3, text: "Read a book", completed: true },
-    { id: 4, text: "Read a book", completed: true },
-    { id: 5, text: "Read a book", completed: true },
-    { id: 6, text: "Read a book", completed: true },
-    { id: 7, text: "Read a book", completed: true },
-    { id: 8, text: "Read a book", completed: true },
-    { id: 9, text: "Read a book", completed: true },
-    { id: 10, text: "Read a book", completed: true },
-    { id: 11, text: "Read a book", completed: true },
-    { id: 12, text: "Read a book", completed: true },
-    { id: 13, text: "Read a book", completed: true },
-    { id: 14, text: "Read a book", completed: true },
-    { id: 15, text: "Read a book", completed: true },
-    { id: 16, text: "Read a book", completed: true },
-    { id: 17, text: "Read a book", completed: true },
-  ]);
+  // const toggleTodo = (id) => {
+  //   setTodos((prev) =>
+  //     prev.map((todo) =>
+  //       todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  //     )
+  //   );
+  // };
 
-  const toggleTodo = (id) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
-
-  const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
+  // const deleteTodo = (id) => {
+  //   setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  // };
 
   return (
     <Paper
@@ -57,12 +35,12 @@ export default function Column(props) {
           scrollbarWidth: "none",
         }}
       >
-        {todos.map((todo, key) => (
+        {props.items.map((todo, key) => (
           <Cards
             key={key}
             {...todo}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
+            // toggleTodo={toggleTodo}
+            // deleteTodo={deleteTodo}
           ></Cards>
         ))}
       </List>
@@ -74,6 +52,7 @@ export default function Column(props) {
         buttonLabel="Add a card"
         elevation={0}
         color="transparent"
+        marginTop="7px"
       ></AddContent>
     </Paper>
   );
