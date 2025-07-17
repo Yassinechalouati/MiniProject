@@ -1,9 +1,10 @@
-import { List, Paper, Typography } from "@mui/material";
+import { List, Paper, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import Cards from "./Cards";
-import AddCard from "./AddCard";
+import AddContent from "./AddContent";
 
 export default function Column(props) {
+  const theme = useTheme();
   const [todos, setTodos] = useState([
     { id: 1, text: "Buy groceries", completed: false },
     { id: 2, text: "Read a book", completed: true },
@@ -45,7 +46,7 @@ export default function Column(props) {
       }}
       elevation={6}
     >
-      <Typography variant="subtitle1" component="paragraph">
+      <Typography variant="subtitle1" component="p">
         {props.Title}
       </Typography>
       <List
@@ -65,7 +66,15 @@ export default function Column(props) {
           ></Cards>
         ))}
       </List>
-      <AddCard text="Add a card" classname="addButton"></AddCard>
+      <AddContent
+        placeholder="Enter a title"
+        minRows={1}
+        maxRows={4}
+        editModeButtonLabel="Add"
+        buttonLabel="Add a card"
+        elevation={0}
+        color="transparent"
+      ></AddContent>
     </Paper>
   );
 }

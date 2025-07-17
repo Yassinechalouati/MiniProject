@@ -7,20 +7,3 @@ body {
   height: 100vh;
   width: 100wh;
 }
-.addButton {
-  display: flex;
-  padding: 5px;
-  justify-content: start;
-  width: 100%;
-  margin-top: 7px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  align-items: center;
-}
-
-.addButton:hover {
-  background-color: gray;
-  transition: 0.2s ease-in-out;
-}

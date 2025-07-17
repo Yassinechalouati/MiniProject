@@ -1,11 +1,11 @@
-import { ListItem } from "@mui/material";
+import { ListItem, useTheme } from "@mui/material";
 import { ListItemText } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
-//TODO:
-// make line break when text in card overflows
 
 export default function Cards(props) {
+  const theme = useTheme();
+
   return (
     <ListItem
       key={props.id}
@@ -13,7 +13,7 @@ export default function Cards(props) {
       button="true"
       onClick={() => props.toggleTodo(props.id)}
       sx={{
-        bgcolor: "gray",
+        bgcolor: theme.palette.background.default,
         borderRadius: "10px",
         marginY: "7px",
       }}
