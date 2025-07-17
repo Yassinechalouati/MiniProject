@@ -1,6 +1,7 @@
 package com.tcs.kanbanboard.repository;
 
 import com.tcs.kanbanboard.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
