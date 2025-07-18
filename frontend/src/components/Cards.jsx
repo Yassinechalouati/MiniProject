@@ -28,11 +28,14 @@ export default function Cards(props) {
         primary={props.content}
         sx={{
           textDecoration: props.completed ? "line-through" : "none",
-          wordBreak: "break-all",
+          wordBreak: "break-word",
+          overflowWrap: "break-word",
+          whiteSpace: "normal",
         }}
       />
       <IconButton
         edge="end"
+        sx={{ alignSelf: "self-start" }}
         // onClick={() => props.deleteTodo(props.id)}
       >
         <DeleteIcon

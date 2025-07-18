@@ -1,7 +1,9 @@
 import { List, Paper, Typography } from "@mui/material";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
+import { addElement, queryClient } from "../utils/http";
 
+import { useMutation } from "@tanstack/react-query";
 export default function Column(props) {
   // const toggleTodo = (id) => {
   //   setTodos((prev) =>
@@ -14,6 +16,13 @@ export default function Column(props) {
   // const deleteTodo = (id) => {
   //   setTodos((prev) => prev.filter((todo) => todo.id !== id));
   // };
+
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: addElement,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    },
+  });
 
   return (
     <Paper
@@ -53,6 +62,9 @@ export default function Column(props) {
         elevation={0}
         color="transparent"
         marginTop="7px"
+        onClick={mutate}
+        path="/lists/123/items"
+        keyName="content"
       ></AddContent>
     </Paper>
   );

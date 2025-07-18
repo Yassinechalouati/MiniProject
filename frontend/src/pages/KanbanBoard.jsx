@@ -3,21 +3,46 @@ import Column from "../components/Column";
 import Stack from "@mui/material/Stack";
 import AddContent from "../components/AddContent";
 import { Box, useTheme } from "@mui/material";
-import { fetchLists } from "../utils/http";
-import { useQuery } from "@tanstack/react-query";
+import { addElement, fetchLists, queryClient } from "../utils/http";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 
 export default function KanbanBoard() {
   const theme = useTheme();
+
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["todoLists"],
     queryFn: fetchLists,
   });
 
+  const {
+    mutate,
+    isPending: isMutatePending,
+    isError: isMutateError,
+    error: mutateError,
+  } = useMutation({
+    mutationFn: addElement,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    },
+  });
+
   return (
     <>
       <NavBar />
-      <Stack padding={2} direction="row" spacing={2} alignItems="flex-start">
+      <Stack
+        sx={{
+          overflowX: "auto", // Enables horizontal scrolling
+          overflowY: "hidden", // Prevent vertical scroll if not needed
+          whiteSpace: "nowrap", // Prevent wrapping
+          flexWrap: "nowrap",
+          height: "90vh",
+        }}
+        padding={2}
+        direction="row"
+        spacing={2}
+        alignItems="flex-start"
+      >
         {!isPending ? (
           <>
             {data.map((list) => (
@@ -36,6 +61,10 @@ export default function KanbanBoard() {
                 buttonLabel="Add another list"
                 elevation={6}
                 color={theme.palette.background.paper}
+                padding="7px"
+                onClick={mutate}
+                path="/lists"
+                keyName="title"
               />
             </Box>
           </>

@@ -1,4 +1,4 @@
-import { Paper, Box, Button, useTheme } from "@mui/material";
+import { Paper, Box, Button } from "@mui/material";
 import IconBut from "./IconBut";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -14,13 +14,23 @@ export default function AddContent({
   color,
   marginTop,
   elevation,
+  onClick,
+  path,
+  padding,
+  keyName,
 }) {
   const [edit, setEdit] = useState(false);
-  const theme = useTheme();
+  const [value, setValue] = useState("");
 
   const handleEdit = () => {
     setEdit((prevValue) => !prevValue);
   };
+
+  const handleSubmit = () => {
+    onClick({ [keyName]: value, path });
+    setValue("");
+  };
+
   return edit ? (
     <Paper
       elevation={elevation}
@@ -29,13 +39,16 @@ export default function AddContent({
         flexDirection: "column",
         bgcolor: color,
         borderRadius: "10px",
-        padding: "7px",
+        padding: padding ?? "0px",
       }}
     >
       <TextareaAutosize
         placeholder={placeholder}
         minRows={minRows}
         maxRows={maxRows}
+        value={value}
+        required
+        onChange={(e) => setValue(e.target.value)}
         style={{
           padding: "10px",
           marginTop: "10px",
@@ -52,7 +65,9 @@ export default function AddContent({
           marginTop: "7px",
         }}
       >
-        <Button variant="contained">{editModeButtonLabel}</Button>
+        <Button disabled={!value} onClick={handleSubmit} variant="contained">
+          {editModeButtonLabel}
+        </Button>
         <IconBut
           onClick={handleEdit}
           Icon={
