@@ -3,7 +3,7 @@ import { ListItemText } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { deleteElement, queryClient } from "../utils/http";
+import { deleteElement, queryClient, updateItem } from "../utils/http";
 import { useState } from "react";
 import EditContent from "./EditContent";
 
@@ -19,12 +19,35 @@ export default function Cards(props) {
     },
   });
 
+  const {
+    mutate: mutateEdit,
+    isPending: isPedingEdit,
+    isError: isErrorPeding,
+    error: errorPending,
+  } = useMutation({
+    mutationFn: updateItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    },
+  });
+
   const handleEdit = () => {
     setEdit((prevValue) => !prevValue);
+    setValue(props.content);
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
+  };
+
+  const handleClick = () => {
+    handleEdit();
+    if (value !== props.content) {
+      mutateEdit({
+        data: { content: value },
+        path: `/lists/${props.listId}/items/${props.id}`,
+      });
+    }
   };
 
   return (
@@ -37,6 +60,7 @@ export default function Cards(props) {
           onChange={handleChange}
           edit={edit}
           handleEdit={handleEdit}
+          onClick={handleClick}
         ></EditContent>
       ) : (
         <ListItem

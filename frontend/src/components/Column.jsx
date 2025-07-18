@@ -1,7 +1,7 @@
 import { Box, List, Paper, Typography } from "@mui/material";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
-import { addElement, queryClient } from "../utils/http";
+import { addElement, queryClient, updateItem } from "../utils/http";
 import { useMutation } from "@tanstack/react-query";
 import DeleteList from "./DeleteList";
 import { useState } from "react";
@@ -18,12 +18,35 @@ export default function Column(props) {
     },
   });
 
+  const {
+    mutate: mutateEdit,
+    isPending: isPedingEdit,
+    isError: isErrorPeding,
+    error: errorPending,
+  } = useMutation({
+    mutationFn: updateItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    },
+  });
+
   const handleEdit = () => {
     setEdit((prevValue) => !prevValue);
+    setValue(props.Title);
   };
 
   const handleChange = (e) => {
     setValue(e.target.value);
+  };
+
+  const handleClick = () => {
+    handleEdit();
+    if (value !== props.Title) {
+      mutateEdit({
+        data: { title: value },
+        path: `/lists/${props.id}`,
+      });
+    }
   };
 
   return (
@@ -51,6 +74,7 @@ export default function Column(props) {
             onChange={handleChange}
             edit={edit}
             handleEdit={handleEdit}
+            onClick={handleClick}
           ></EditContent>
         ) : (
           <Typography onClick={handleEdit} variant="subtitle1" component="p">
@@ -69,13 +93,7 @@ export default function Column(props) {
         }}
       >
         {props.items.map((todo) => (
-          <Cards
-            {...todo}
-            listId={props.id}
-            key={todo.id}
-            // toggleTodo={toggleTodo}
-            // deleteTodo={deleteTodo}
-          ></Cards>
+          <Cards {...todo} listId={props.id} key={todo.id}></Cards>
         ))}
       </List>
       <AddContent

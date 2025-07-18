@@ -29,7 +29,7 @@ export async function addElement(data) {
     const response = await fetch(`http://localhost:3000${data.path}`, {
       method: `${data.method}`,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: data.content }),
+      body: JSON.stringify({ [data.keyName]: data[data.keyName] }),
     });
 
     if (!response.ok) {
@@ -66,4 +66,23 @@ export async function deleteElement(data_) {
   } catch (error) {
     console.error("error deleting element", error);
   }
+}
+
+export async function updateItem(request) {
+  const response = await fetch(`http://localhost:3000${request.path}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(request.data),
+  });
+
+  if (!response.ok) {
+    const error = new Error("Failed to update item");
+    error.status = response.status;
+    error.details = await response.json();
+    throw error;
+  }
+
+  return await response.json();
 }

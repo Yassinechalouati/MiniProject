@@ -29,7 +29,8 @@ export default function AddContent({
   };
 
   const handleSubmit = () => {
-    onClick({ [keyName]: value, path, method });
+    console.log(`${keyName} ${value}`);
+    onClick({ [keyName]: value, path, method, keyName });
     setValue("");
   };
 

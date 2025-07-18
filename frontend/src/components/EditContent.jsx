@@ -45,11 +45,7 @@ export default function EditContent(props) {
           justifyContent: "flex-start",
         }}
       >
-        <IconButton
-          sx={{ color: "green" }}
-          onClick={props.handleEdit}
-          edge="end"
-        >
+        <IconButton sx={{ color: "green" }} onClick={props.onClick} edge="end">
           <CheckIcon />
         </IconButton>
         <IconButton sx={{ color: "red" }} onClick={props.handleEdit} edge="end">
