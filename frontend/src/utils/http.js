@@ -1,10 +1,12 @@
 import { QueryClient } from "@tanstack/react-query";
 
+const url = import.meta.env.VITE_API_URL;
+
 // Create a client
 export const queryClient = new QueryClient();
 
 export async function fetchLists() {
-  const response = await fetch(`http://localhost:3000/template`);
+  const response = await fetch(`${url}/template`);
 
   if (!response.ok) {
     const error = new Error("An error occurred while fetching the List");
@@ -20,7 +22,7 @@ export async function fetchLists() {
 }
 
 export async function addElement(data) {
-  const response = await fetch(`http://localhost:3000${data.path}`, {
+  const response = await fetch(`${url}${data.path}`, {
     method: `${data.method}`,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ [data.keyName]: data[data.keyName] }),
@@ -39,7 +41,7 @@ export async function addElement(data) {
 }
 
 export async function deleteElement(data_) {
-  const response = await fetch(`http://localhost:3000${data_.path}`, {
+  const response = await fetch(`${url}${data_.path}`, {
     method: "DELETE",
   });
   if (!response.ok) {
@@ -55,7 +57,7 @@ export async function deleteElement(data_) {
 }
 
 export async function updateItem(request) {
-  const response = await fetch(`http://localhost:3000${request.path}`, {
+  const response = await fetch(`${url}${request.path}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
