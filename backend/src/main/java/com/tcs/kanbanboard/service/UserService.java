@@ -2,6 +2,7 @@ package com.tcs.kanbanboard.service;
 
 import com.tcs.kanbanboard.dto.user.UserRegistrationDTO;
 import com.tcs.kanbanboard.entity.User;
+import com.tcs.kanbanboard.exception.ResourceNotFoundException;
 import com.tcs.kanbanboard.repository.AppUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,11 +53,29 @@ public class UserService {
         newUser.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         newUser.setCreatedAt(LocalDateTime.now());
         return userRepository.save(newUser);
-        //TODO: Handle exception in controller if email is taken
     }
 
     public User updateUser(User user) {
         return userRepository.save(user);
-        //TODO: Customize for different kinds of updates
+    }
+
+    public User changePassword(String email, String currentPassword, String newPassword) {
+        User u = findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("No such user"));
+        if (!passwordEncoder.matches(currentPassword, u.getPasswordHash())) {
+            throw new IllegalArgumentException("Bad current password");
+        }
+        u.setPasswordHash(passwordEncoder.encode(newPassword));
+        return userRepository.save(u);
+    }
+
+    public User changeEmail(String oldEmail, String newEmail) {
+        User u = findByEmail(oldEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("No such user"));
+        if (existsByEmail(newEmail)) {
+            throw new IllegalArgumentException("Email already taken");
+        }
+        u.setEmail(newEmail);
+        return userRepository.save(u);
     }
 }

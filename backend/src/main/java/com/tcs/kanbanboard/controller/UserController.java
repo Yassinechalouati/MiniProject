@@ -1,9 +1,9 @@
 package com.tcs.kanbanboard.controller;
 
-import com.tcs.kanbanboard.dto.user.UserUpdateDTO;
 import com.tcs.kanbanboard.dto.user.UserLoginDTO;
 import com.tcs.kanbanboard.dto.user.UserRegistrationDTO;
 import com.tcs.kanbanboard.dto.user.UserResponseDTO;
+import com.tcs.kanbanboard.dto.user.UserUpdateDTO;
 import com.tcs.kanbanboard.entity.User;
 import com.tcs.kanbanboard.mapper.UserMapper;
 import com.tcs.kanbanboard.service.UserService;
@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,6 +32,13 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(UserMapper.toDTO(user));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String,String>> handleIllegalArg(IllegalArgumentException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("error", ex.getMessage()));
     }
 
     // POST /api/users/login
