@@ -1,7 +1,8 @@
 package com.tcs.kanbanboard.controller;
 
-import com.tcs.kanbanboard.dto.BoardCreateDTO;
-import com.tcs.kanbanboard.dto.BoardResponseDTO;
+import com.tcs.kanbanboard.dto.board.BoardCreateDTO;
+import com.tcs.kanbanboard.dto.board.BoardResponseDTO;
+import com.tcs.kanbanboard.dto.board.BoardUpdateDTO;
 import com.tcs.kanbanboard.entity.Board;
 import com.tcs.kanbanboard.entity.User;
 import com.tcs.kanbanboard.mapper.BoardMapper;
@@ -40,10 +41,7 @@ public class BoardController {
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponseDTO> getBoardById(@PathVariable Long id) {
         Optional<Board> boardOpt = boardService.getBoardById(id);
-        if (boardOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(BoardMapper.toDTO(boardOpt.get()));
+        return boardOpt.map(board -> ResponseEntity.ok(BoardMapper.toDTO(board))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -52,7 +50,7 @@ public class BoardController {
         if (ownerOpt.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        Board board = boardService.createBoard(dto, ownerOpt.get());
+        Board board = boardService.createBoard(dto.getOwnerEmail(), dto.getName());
         return new ResponseEntity<>(BoardMapper.toDTO(board), HttpStatus.CREATED);
     }
 
@@ -66,4 +64,17 @@ public class BoardController {
         boardService.deleteBoard(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BoardResponseDTO> updateBoard(@PathVariable Long id,
+                                                        @Validated @RequestBody BoardUpdateDTO dto) {
+        return boardService.getBoardById(id)
+                .map(board -> {
+                    board.setName(dto.getName());
+                    Board updated = boardService.saveBoard(board);
+                    return ResponseEntity.ok(BoardMapper.toDTO(updated));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }

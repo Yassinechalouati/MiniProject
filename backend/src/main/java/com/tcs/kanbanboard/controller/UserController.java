@@ -1,9 +1,9 @@
 package com.tcs.kanbanboard.controller;
 
+import com.tcs.kanbanboard.dto.user.UserUpdateDTO;
 import com.tcs.kanbanboard.dto.user.UserLoginDTO;
 import com.tcs.kanbanboard.dto.user.UserRegistrationDTO;
 import com.tcs.kanbanboard.dto.user.UserResponseDTO;
-import com.tcs.kanbanboard.dto.UserUpdateDTO;
 import com.tcs.kanbanboard.entity.User;
 import com.tcs.kanbanboard.mapper.UserMapper;
 import com.tcs.kanbanboard.service.UserService;

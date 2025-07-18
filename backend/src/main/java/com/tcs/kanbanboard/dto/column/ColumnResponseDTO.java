@@ -1,9 +1,13 @@
-package com.tcs.kanbanboard.dto;
+package com.tcs.kanbanboard.dto.column;
 
 import com.tcs.kanbanboard.dto.item.ItemResponseDTO;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 public class ColumnResponseDTO {
 
     private Long id;
@@ -24,43 +28,4 @@ public class ColumnResponseDTO {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getBoardId() {
-        return boardId;
-    }
-
-    public void setBoardId(Long boardId) {
-        this.boardId = boardId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public List<ItemResponseDTO> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemResponseDTO> items) {
-        this.items = items;
-    }
 }

@@ -1,6 +1,6 @@
 package com.tcs.kanbanboard.service;
 
-import com.tcs.kanbanboard.dto.UserRegistrationDTO;
+import com.tcs.kanbanboard.dto.user.UserRegistrationDTO;
 import com.tcs.kanbanboard.entity.User;
 import com.tcs.kanbanboard.repository.AppUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

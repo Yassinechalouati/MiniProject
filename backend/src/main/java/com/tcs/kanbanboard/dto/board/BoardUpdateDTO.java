@@ -1,8 +1,12 @@
-package com.tcs.kanbanboard.dto;
+package com.tcs.kanbanboard.dto.board;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class BoardUpdateDTO {
 
     @NotBlank(message = "Board name is required")
@@ -16,11 +20,4 @@ public class BoardUpdateDTO {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

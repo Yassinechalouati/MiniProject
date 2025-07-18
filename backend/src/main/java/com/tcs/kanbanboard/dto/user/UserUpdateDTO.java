@@ -1,10 +1,14 @@
-package com.tcs.kanbanboard.dto;
+package com.tcs.kanbanboard.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.processing.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.validation.constraints.Pattern;
 
+@Setter
+@Getter
 public class UserUpdateDTO {
 
     @NotBlank(message = "Email is required")
@@ -19,27 +23,4 @@ public class UserUpdateDTO {
 
     private String currentPassword;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
-    }
 }

@@ -1,7 +1,12 @@
 package com.tcs.kanbanboard.dto.user;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 public class UserResponseDTO {
     private String email;
     private LocalDateTime createdAt;
@@ -13,19 +18,4 @@ public class UserResponseDTO {
         this.createdAt = createdAt;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

@@ -1,8 +1,8 @@
 package com.tcs.kanbanboard.controller;
 
-import com.tcs.kanbanboard.dto.ItemCreateDTO;
-import com.tcs.kanbanboard.dto.ItemResponseDTO;
-import com.tcs.kanbanboard.dto.ItemUpdateDTO;
+import com.tcs.kanbanboard.dto.item.ItemCreateDTO;
+import com.tcs.kanbanboard.dto.item.ItemResponseDTO;
+import com.tcs.kanbanboard.dto.item.ItemUpdateDTO;
 import com.tcs.kanbanboard.entity.Item;
 import com.tcs.kanbanboard.mapper.ItemMapper;
 import com.tcs.kanbanboard.service.ItemService;
@@ -53,8 +53,12 @@ public class ItemController {
     // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
-        itemService.deleteItem(id);
-        return ResponseEntity.noContent().build();
+        return itemService.getItemById(id)
+                .map(i -> {
+                    itemService.deleteItem(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // PUT update item
@@ -73,5 +77,4 @@ public class ItemController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
 }

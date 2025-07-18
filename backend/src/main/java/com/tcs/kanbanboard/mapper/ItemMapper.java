@@ -1,7 +1,7 @@
 package com.tcs.kanbanboard.mapper;
 
-import com.tcs.kanbanboard.dto.ItemCreateDTO;
-import com.tcs.kanbanboard.dto.ItemResponseDTO;
+import com.tcs.kanbanboard.dto.item.ItemCreateDTO;
+import com.tcs.kanbanboard.dto.item.ItemResponseDTO;
 import com.tcs.kanbanboard.entity.ColumnEntity;
 import com.tcs.kanbanboard.entity.Item;
 

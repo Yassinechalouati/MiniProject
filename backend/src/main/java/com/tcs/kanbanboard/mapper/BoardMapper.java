@@ -1,10 +1,9 @@
 package com.tcs.kanbanboard.mapper;
 
-import com.tcs.kanbanboard.dto.BoardCreateDTO;
-import com.tcs.kanbanboard.dto.BoardResponseDTO;
-import com.tcs.kanbanboard.dto.ColumnResponseDTO;
+import com.tcs.kanbanboard.dto.board.BoardCreateDTO;
+import com.tcs.kanbanboard.dto.board.BoardResponseDTO;
+import com.tcs.kanbanboard.dto.column.ColumnResponseDTO;
 import com.tcs.kanbanboard.entity.Board;
-import com.tcs.kanbanboard.entity.ColumnEntity;
 import com.tcs.kanbanboard.entity.User;
 
 import java.util.List;
