@@ -1,10 +1,8 @@
-import {
-  Box,
-  IconButton,
-  ListItem,
-  TextareaAutosize,
-  useTheme,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import ListItem from "@mui/material/ListItem";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useTheme } from "@mui/material/styles";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 

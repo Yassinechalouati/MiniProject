@@ -51,7 +51,6 @@ export async function deleteElement(data_) {
   }
 
   const data = await response.json();
-  console.log(data);
   return data;
 }
 

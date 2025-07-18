@@ -1,14 +1,13 @@
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import { useTheme } from "../providers/ThemeProvider";
-import { useTheme as useTheme_ } from "@mui/material";
+import { useTheme as useTheme_ } from "@mui/material/styles";
 
 export default function ThemeToggle() {
   const { mode, toggleTheme } = useTheme();
   const theme = useTheme_();
 
-  console.log("mode: ", mode);
   return (
     <IconButton
       onClick={toggleTheme}

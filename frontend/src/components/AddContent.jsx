@@ -1,4 +1,7 @@
-import { Paper, Box, Button, useTheme } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { useTheme } from "@mui/material/styles";
 import IconBut from "./IconBut";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -37,7 +40,6 @@ export default function AddContent({
     setValue("");
   };
 
-  console.log(isError);
   return edit ? (
     <Paper
       elevation={elevation}

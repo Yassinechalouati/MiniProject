@@ -1,4 +1,6 @@
-import { List, Paper, Skeleton } from "@mui/material";
+import List from "@mui/material/List";
+import Paper from "@mui/material/Paper";
+import Skeleton from "@mui/material/Skeleton";
 
 export default function LoadingSkeleton() {
   return (

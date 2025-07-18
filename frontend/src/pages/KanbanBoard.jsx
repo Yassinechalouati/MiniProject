@@ -1,11 +1,12 @@
 import NavBar from "../components/NavBar";
 import Column from "../components/Column";
-import Stack from "@mui/material/Stack";
 import AddContent from "../components/AddContent";
-import { Box, useTheme } from "@mui/material";
 import { addElement, fetchLists, queryClient } from "../utils/http";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "../components/LoadingSkeleton";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material/styles";
 
 export default function KanbanBoard() {
   const theme = useTheme();

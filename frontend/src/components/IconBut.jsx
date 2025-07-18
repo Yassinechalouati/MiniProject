@@ -1,4 +1,5 @@
-import { IconButton, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
 export default function IconBut({ text, sx, Icon, ...props }) {
   return (

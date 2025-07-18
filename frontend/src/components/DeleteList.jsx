@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
 import { useMutation } from "@tanstack/react-query";
 import { deleteElement, queryClient } from "../utils/http";
 import { errorAnimation } from "../utils/animation";

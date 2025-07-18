@@ -1,12 +1,10 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  List,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
 import { addElement, queryClient, updateItem } from "../utils/http";
