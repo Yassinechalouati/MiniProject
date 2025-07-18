@@ -1,4 +1,4 @@
-import { Paper, Box, Button } from "@mui/material";
+import { Paper, Box, Button, useTheme } from "@mui/material";
 import IconBut from "./IconBut";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -22,6 +22,7 @@ export default function AddContent({
 }) {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState("");
+  const theme = useTheme();
 
   const handleEdit = () => {
     setEdit((prevValue) => !prevValue);
@@ -56,6 +57,8 @@ export default function AddContent({
           resize: "none",
           wordBreak: "break-word",
           borderRadius: "5px",
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
         }}
       />
       <Box

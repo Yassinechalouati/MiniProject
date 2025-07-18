@@ -4,7 +4,13 @@ import AddContent from "./AddContent";
 import { addElement, queryClient } from "../utils/http";
 import { useMutation } from "@tanstack/react-query";
 import DeleteList from "./DeleteList";
+import { useState } from "react";
+import EditContent from "./EditContent";
 export default function Column(props) {
+  const [edit, setEdit] = useState(false);
+
+  const [value, setValue] = useState(props.Title);
+
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: addElement,
     onSuccess: () => {
@@ -12,11 +18,20 @@ export default function Column(props) {
     },
   });
 
+  const handleEdit = () => {
+    setEdit((prevValue) => !prevValue);
+  };
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
     <Paper
       sx={{
         padding: "7px",
         width: "17rem",
+        minWidth: "17rem",
         borderRadius: "10px",
       }}
       elevation={6}
@@ -24,13 +39,25 @@ export default function Column(props) {
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "start",
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="subtitle1" component="p">
-          {props.Title}
-        </Typography>
+        {edit ? (
+          <EditContent
+            minRows={4}
+            maxRows={4}
+            value={value}
+            onChange={handleChange}
+            edit={edit}
+            handleEdit={handleEdit}
+          ></EditContent>
+        ) : (
+          <Typography onClick={handleEdit} variant="subtitle1" component="p">
+            {props.Title}
+          </Typography>
+        )}
+
         <DeleteList listId={props.id}></DeleteList>
       </Box>
       <List
