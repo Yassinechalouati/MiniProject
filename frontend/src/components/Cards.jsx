@@ -2,9 +2,18 @@ import { ListItem, useTheme } from "@mui/material";
 import { ListItemText } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import { deleteElement, queryClient } from "../utils/http";
 
 export default function Cards(props) {
   const theme = useTheme();
+
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: deleteElement,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    },
+  });
 
   return (
     <ListItem
@@ -34,6 +43,9 @@ export default function Cards(props) {
         }}
       />
       <IconButton
+        onClick={() =>
+          mutate({ path: `/lists/${props.listId}/items/${props.id}` })
+        }
         edge="end"
         sx={{ alignSelf: "self-start" }}
         // onClick={() => props.deleteTodo(props.id)}

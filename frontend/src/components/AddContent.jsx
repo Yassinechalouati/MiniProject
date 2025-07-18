@@ -18,6 +18,7 @@ export default function AddContent({
   path,
   padding,
   keyName,
+  method,
 }) {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState("");
@@ -27,7 +28,7 @@ export default function AddContent({
   };
 
   const handleSubmit = () => {
-    onClick({ [keyName]: value, path });
+    onClick({ [keyName]: value, path, method });
     setValue("");
   };
 

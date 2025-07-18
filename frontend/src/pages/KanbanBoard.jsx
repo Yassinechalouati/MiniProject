@@ -46,7 +46,12 @@ export default function KanbanBoard() {
         {!isPending ? (
           <>
             {data.map((list) => (
-              <Column key={list.id} Title={list.title} items={list.items} />
+              <Column
+                key={list.id}
+                Title={list.title}
+                items={list.items}
+                id={list.id}
+              />
             ))}
             <Box
               sx={{
@@ -65,6 +70,7 @@ export default function KanbanBoard() {
                 onClick={mutate}
                 path="/lists"
                 keyName="title"
+                method="POST"
               />
             </Box>
           </>

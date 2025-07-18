@@ -1,22 +1,10 @@
-import { List, Paper, Typography } from "@mui/material";
+import { Box, List, Paper, Typography } from "@mui/material";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
 import { addElement, queryClient } from "../utils/http";
-
 import { useMutation } from "@tanstack/react-query";
+import DeleteList from "./DeleteList";
 export default function Column(props) {
-  // const toggleTodo = (id) => {
-  //   setTodos((prev) =>
-  //     prev.map((todo) =>
-  //       todo.id === id ? { ...todo, completed: !todo.completed } : todo
-  //     )
-  //   );
-  // };
-
-  // const deleteTodo = (id) => {
-  //   setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  // };
-
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: addElement,
     onSuccess: () => {
@@ -33,9 +21,18 @@ export default function Column(props) {
       }}
       elevation={6}
     >
-      <Typography variant="subtitle1" component="p">
-        {props.Title}
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography variant="subtitle1" component="p">
+          {props.Title}
+        </Typography>
+        <DeleteList listId={props.id}></DeleteList>
+      </Box>
       <List
         sx={{
           overflowY: "scroll",
@@ -44,10 +41,11 @@ export default function Column(props) {
           scrollbarWidth: "none",
         }}
       >
-        {props.items.map((todo, key) => (
+        {props.items.map((todo) => (
           <Cards
-            key={key}
             {...todo}
+            listId={props.id}
+            key={todo.id}
             // toggleTodo={toggleTodo}
             // deleteTodo={deleteTodo}
           ></Cards>
@@ -63,8 +61,9 @@ export default function Column(props) {
         color="transparent"
         marginTop="7px"
         onClick={mutate}
-        path="/lists/123/items"
+        path={`/lists/${props.id}`}
         keyName="content"
+        method="POST"
       ></AddContent>
     </Paper>
   );
