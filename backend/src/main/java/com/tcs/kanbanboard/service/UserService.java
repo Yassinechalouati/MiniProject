@@ -3,6 +3,7 @@ package com.tcs.kanbanboard.service;
 import com.tcs.kanbanboard.dto.UserRegistrationDTO;
 import com.tcs.kanbanboard.entity.User;
 import com.tcs.kanbanboard.repository.AppUserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,10 +14,12 @@ public class UserService {
 
     private final AppUserRepository userRepository;
 
-    public UserService(AppUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
+    public UserService(AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
