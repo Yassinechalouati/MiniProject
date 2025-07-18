@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useMutation } from "@tanstack/react-query";
 import { deleteElement, queryClient } from "../utils/http";
@@ -13,15 +13,17 @@ export default function DeleteList({ listId }) {
   });
 
   return (
-    <IconButton
+    <Button
       sx={{
         ...errorAnimation(isError),
       }}
       loading={isPending}
       disabled={isPending}
+      variant="contained"
+      color="error"
       onClick={() => mutate({ path: `/lists/${listId}` })}
     >
-      <ClearIcon />
-    </IconButton>
+      Delete
+    </Button>
   );
 }

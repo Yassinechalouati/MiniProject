@@ -1,4 +1,12 @@
-import { Box, List, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  List,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Cards from "./Cards";
 import AddContent from "./AddContent";
 import { addElement, queryClient, updateItem } from "../utils/http";
@@ -7,12 +15,16 @@ import DeleteList from "./DeleteList";
 import { useState } from "react";
 import EditContent from "./EditContent";
 import { errorAnimation } from "../utils/animation";
+import CustomModal from "./CustomModal";
+import ClearIcon from "@mui/icons-material/Clear";
+
 export default function Column(props) {
   const [edit, setEdit] = useState(false);
 
   const [value, setValue] = useState(props.Title);
+  const [open, setOpen] = useState(false);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: addElement,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
@@ -44,6 +56,9 @@ export default function Column(props) {
       });
     }
   };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <Paper
@@ -87,13 +102,38 @@ export default function Column(props) {
             {props.Title}
           </Typography>
         )}
+        {open && (
+          <CustomModal handleClose={handleClose} listId={props}>
+            <Typography
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
+              gutterBottom
+            >
+              Confirm Deletion
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mb: 3 }}>
+              Are you sure you want to delete this item? This action cannot be
+              undone.
+            </Typography>
 
-        <DeleteList listId={props.id}></DeleteList>
+            <Stack direction="row" spacing={2} justifyContent="flex-end">
+              <Button variant="outlined" color="inherit" onClick={handleClose}>
+                Cancel
+              </Button>
+              <DeleteList listId={props.id}></DeleteList>
+            </Stack>
+          </CustomModal>
+        )}
+
+        <IconButton onClick={handleOpen}>
+          <ClearIcon />
+        </IconButton>
       </Box>
       <List
         sx={{
           overflowY: "scroll",
-          maxHeight: "75vh",
+          maxHeight: "70vh",
           "&::-webkit-scrollbar": { display: "none" },
           scrollbarWidth: "none",
         }}
@@ -116,6 +156,7 @@ export default function Column(props) {
         keyName="content"
         method="POST"
         loading={isPending}
+        isError={isError}
       ></AddContent>
     </Paper>
   );

@@ -10,7 +10,7 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 export default function KanbanBoard() {
   const theme = useTheme();
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ["todoLists"],
     queryFn: fetchLists,
   });
@@ -25,6 +25,24 @@ export default function KanbanBoard() {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
     },
   });
+
+  if (isError) {
+    return (
+      <>
+        <NavBar></NavBar>
+        <Stack
+          sx={{
+            height: "90vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Error fetching items come back later.
+        </Stack>
+      </>
+    );
+  }
 
   return (
     <>
@@ -71,6 +89,7 @@ export default function KanbanBoard() {
                 keyName="title"
                 method="POST"
                 loading={isMutatePending}
+                isError={isMutateError}
               />
             </Box>
           </>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { errorAnimation } from "../utils/animation";
 
 export default function AddContent({
   placeholder,
@@ -20,6 +21,7 @@ export default function AddContent({
   keyName,
   method,
   loading,
+  isError,
 }) {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState("");
@@ -27,6 +29,7 @@ export default function AddContent({
 
   const handleEdit = () => {
     setEdit((prevValue) => !prevValue);
+    setValue("");
   };
 
   const handleSubmit = () => {
@@ -34,6 +37,7 @@ export default function AddContent({
     setValue("");
   };
 
+  console.log(isError);
   return edit ? (
     <Paper
       elevation={elevation}
@@ -72,6 +76,9 @@ export default function AddContent({
         }}
       >
         <Button
+          sx={{
+            ...errorAnimation(isError),
+          }}
           disabled={!value}
           loading={loading}
           onClick={handleSubmit}
