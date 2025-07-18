@@ -6,24 +6,20 @@ import { useMutation } from "@tanstack/react-query";
 import DeleteList from "./DeleteList";
 import { useState } from "react";
 import EditContent from "./EditContent";
+import { errorAnimation } from "../utils/animation";
 export default function Column(props) {
   const [edit, setEdit] = useState(false);
 
   const [value, setValue] = useState(props.Title);
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addElement,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
     },
   });
 
-  const {
-    mutate: mutateEdit,
-    isPending: isPedingEdit,
-    isError: isErrorPeding,
-    error: errorPending,
-  } = useMutation({
+  const { mutate: mutateEdit, isError: isPendingError } = useMutation({
     mutationFn: updateItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
@@ -77,7 +73,17 @@ export default function Column(props) {
             onClick={handleClick}
           ></EditContent>
         ) : (
-          <Typography onClick={handleEdit} variant="subtitle1" component="p">
+          <Typography
+            sx={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              ...errorAnimation(isPendingError),
+            }}
+            onClick={handleEdit}
+            variant="subtitle1"
+            component="p"
+          >
             {props.Title}
           </Typography>
         )}
@@ -109,6 +115,7 @@ export default function Column(props) {
         path={`/lists/${props.id}`}
         keyName="content"
         method="POST"
+        loading={isPending}
       ></AddContent>
     </Paper>
   );

@@ -19,6 +19,7 @@ export default function AddContent({
   padding,
   keyName,
   method,
+  loading,
 }) {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState("");
@@ -29,7 +30,6 @@ export default function AddContent({
   };
 
   const handleSubmit = () => {
-    console.log(`${keyName} ${value}`);
     onClick({ [keyName]: value, path, method, keyName });
     setValue("");
   };
@@ -46,11 +46,12 @@ export default function AddContent({
       }}
     >
       <TextareaAutosize
-        placeholder={placeholder}
+        placeholder={!loading ? placeholder : ""}
         minRows={minRows}
         maxRows={maxRows}
         value={value}
         required
+        disabled={loading}
         onChange={(e) => setValue(e.target.value)}
         style={{
           padding: "10px",
@@ -70,11 +71,17 @@ export default function AddContent({
           marginTop: "7px",
         }}
       >
-        <Button disabled={!value} onClick={handleSubmit} variant="contained">
+        <Button
+          disabled={!value}
+          loading={loading}
+          onClick={handleSubmit}
+          variant="contained"
+        >
           {editModeButtonLabel}
         </Button>
         <IconBut
           onClick={handleEdit}
+          disabled={loading}
           Icon={
             <ClearIcon
               sx={{

@@ -19,7 +19,6 @@ export default function KanbanBoard() {
     mutate,
     isPending: isMutatePending,
     isError: isMutateError,
-    error: mutateError,
   } = useMutation({
     mutationFn: addElement,
     onSuccess: () => {
@@ -71,6 +70,7 @@ export default function KanbanBoard() {
                 path="/lists"
                 keyName="title"
                 method="POST"
+                loading={isMutatePending}
               />
             </Box>
           </>

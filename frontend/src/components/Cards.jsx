@@ -6,25 +6,21 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteElement, queryClient, updateItem } from "../utils/http";
 import { useState } from "react";
 import EditContent from "./EditContent";
+import { errorAnimation } from "../utils/animation";
 
 export default function Cards(props) {
   const [edit, setEdit] = useState(false);
   const theme = useTheme();
   const [value, setValue] = useState(props.content);
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: deleteElement,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
     },
   });
 
-  const {
-    mutate: mutateEdit,
-    isPending: isPedingEdit,
-    isError: isErrorPeding,
-    error: errorPending,
-  } = useMutation({
+  const { mutate: mutateEdit, isError: isUpdateError } = useMutation({
     mutationFn: updateItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todoLists"] });
@@ -41,13 +37,13 @@ export default function Cards(props) {
   };
 
   const handleClick = () => {
-    handleEdit();
     if (value !== props.content) {
       mutateEdit({
         data: { content: value },
         path: `/lists/${props.listId}/items/${props.id}`,
       });
     }
+    handleEdit();
   };
 
   return (
@@ -67,19 +63,13 @@ export default function Cards(props) {
           key={props.id}
           dense
           button="true"
-          // onClick={() => props.toggleTodo(props.id)}
           sx={{
             bgcolor: theme.palette.background.default,
             borderRadius: "10px",
             marginY: "7px",
+            ...errorAnimation(isUpdateError),
           }}
         >
-          {/* <Checkbox
-              edge="start"
-              checked={todo.completed}
-              tabIndex={-1}
-              disableRipple
-            /> */}
           <ListItemText
             onClick={handleEdit}
             primary={props.content}
@@ -90,16 +80,22 @@ export default function Cards(props) {
             }}
           />
           <IconButton
+            loading={isPending}
+            disabled={isPending}
             onClick={() =>
               mutate({ path: `/lists/${props.listId}/items/${props.id}` })
             }
             edge="end"
-            sx={{ alignSelf: "self-start" }}
-            // onClick={() => props.deleteTodo(props.id)}
+            sx={{
+              alignSelf: "self-start",
+              ...errorAnimation(isError),
+            }}
           >
             <DeleteIcon
               sx={{
-                color: theme.palette.text.primary,
+                color: isPending
+                  ? theme.palette.background.default
+                  : theme.palette.text.primary,
               }}
             />
           </IconButton>
