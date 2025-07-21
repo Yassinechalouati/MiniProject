@@ -8,6 +8,7 @@ export const queryClient = new QueryClient();
 export async function fetchLists() {
   const response = await fetch(`${url}/template`);
 
+  // Needs extracted/shared error handling, bc this is the first instance
   if (!response.ok) {
     const error = new Error("An error occurred while fetching the List");
     error.code = response.status;
@@ -28,6 +29,7 @@ export async function addElement(data) {
     body: JSON.stringify({ [data.keyName]: data[data.keyName] }),
   });
 
+  // second instance
   if (!response.ok) {
     const error = new Error("An error occurred while adding a card");
     error.code = response.status;
@@ -44,6 +46,8 @@ export async function deleteElement(data_) {
   const response = await fetch(`${url}${data_.path}`, {
     method: "DELETE",
   });
+
+  // first instance
   if (!response.ok) {
     const error = new Error("An error occurred while adding a card");
     error.code = response.status;
@@ -65,6 +69,7 @@ export async function updateItem(request) {
     body: JSON.stringify(request.data),
   });
 
+  // forth instance
   if (!response.ok) {
     const error = new Error("Failed to update item");
     error.status = response.status;

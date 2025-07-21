@@ -19,7 +19,7 @@ export default function NavBar() {
               alignItems: "center",
             }}
           >
-            <ThemeToggle></ThemeToggle>
+            <ThemeToggle></ThemeToggle> <-- self closing tag
           </div>
         </Toolbar>
       </AppBar>

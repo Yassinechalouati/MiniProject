@@ -20,6 +20,7 @@ export default function Cards(props) {
 
   const theme = useTheme();
 
+  //too many repeted tanstack logic, use a custom hook instead under a /queries folder
   const { mutate, isPending, isError } = useMutation({
     mutationFn: deleteElement,
     onSuccess: () => {

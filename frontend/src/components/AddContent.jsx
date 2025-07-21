@@ -106,7 +106,7 @@ export default function AddContent({
         />
       </Box>
     </Paper>
-  ) : (
+  ) : ( // conditional render is too long, needs better refactoring
     <IconBut
       onClick={handleEdit}
       text={buttonLabel}

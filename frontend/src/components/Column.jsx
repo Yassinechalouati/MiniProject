@@ -15,6 +15,7 @@ import EditContent from "./EditContent";
 import { errorAnimation } from "../utils/animation";
 import CustomModal from "./CustomModal";
 import ClearIcon from "@mui/icons-material/Clear";
+// imports could be optimized and grouped together as done on bigger projects
 
 export default function Column(props) {
   const [edit, setEdit] = useState(false);

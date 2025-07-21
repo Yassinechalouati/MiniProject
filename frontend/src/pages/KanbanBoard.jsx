@@ -30,7 +30,7 @@ export default function KanbanBoard() {
   if (isError) {
     return (
       <>
-        <NavBar></NavBar>
+        <NavBar></NavBar> // self closing tags
         <Stack
           sx={{
             height: "90vh",
@@ -61,6 +61,8 @@ export default function KanbanBoard() {
         spacing={2}
         alignItems="flex-start"
       >
+
+        // try showing loading skeletons first, to follow order of appearance
         {!isPending ? (
           <>
             {data.map((list) => (
